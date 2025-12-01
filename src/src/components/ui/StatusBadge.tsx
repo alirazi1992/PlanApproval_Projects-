@@ -4,6 +4,7 @@ import { ProjectStatus, DocumentStatus, InspectionResult, CAPAStatus } from '../
 interface StatusBadgeProps {
   status: ProjectStatus | DocumentStatus | InspectionResult | CAPAStatus | string;
   className?: string;
+  label?: string;
 }
 
 const statusConfig: Record<string, { label: string; color: string }> = {
@@ -90,18 +91,27 @@ const statusConfig: Record<string, { label: string; color: string }> = {
   Closed: {
     label: 'بسته شده',
     color: 'bg-gray-100 text-gray-800'
+  },
+  Normal: {
+    label: 'Normal',
+    color: 'bg-emerald-100 text-emerald-800'
+  },
+  'Track-Fast': {
+    label: 'Track-Fast',
+    color: 'bg-orange-100 text-orange-800'
   }
 };
 
-export function StatusBadge({
-  status,
-  className
-}: StatusBadgeProps) {
+export function StatusBadge({ status, className, label }: StatusBadgeProps) {
   const config = statusConfig[status] || {
-    label: status,
+    label: label || status,
     color: 'bg-gray-100 text-gray-800'
   };
-  return <span className={cn('inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium', config.color, className)}>
-      {config.label}
-    </span>;
+  return (
+    <span
+      className={cn('inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium', config.color, className)}
+    >
+      {label || config.label}
+    </span>
+  );
 }

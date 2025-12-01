@@ -1,0 +1,178 @@
+import { AlertItem, Document, FinanceSummary, KPIValue, Project, Scope } from "../types";
+
+export const baseScope: Scope = {
+  organizationId: "org-1",
+  departmentId: "dep-1",
+  unitId: "unit-1",
+};
+
+export const projects: Project[] = [
+  {
+    id: "p-1",
+    code: "UTN-1980",
+    title: "بازطراحی بدنه کشتی",
+    clientName: "شرکت کشتیرانی الف",
+    location: "بندرعباس",
+    status: "Track-Fast",
+    progress: 72,
+    startDate: "2025-10-01",
+    dueDate: "2025-12-15",
+    lastUpdate: "2025-11-20",
+    scope: { ...baseScope, unitId: "unit-1" },
+  },
+  {
+    id: "p-2",
+    code: "UTN-2045",
+    title: "نوسازی سیستم رانش",
+    clientName: "شرکت نفتکش ب",
+    location: "بوشهر",
+    status: "Normal",
+    progress: 48,
+    startDate: "2025-08-12",
+    dueDate: "2025-11-30",
+    lastUpdate: "2025-11-18",
+    scope: { ...baseScope, unitId: "unit-2" },
+  },
+  {
+    id: "p-3",
+    code: "UTN-2101",
+    title: "بازنگری مدارک الکتریک",
+    clientName: "شرکت سازه دریا",
+    location: "انزلی",
+    status: "Normal",
+    progress: 85,
+    startDate: "2025-09-05",
+    dueDate: "2025-12-05",
+    lastUpdate: "2025-11-21",
+    scope: { ...baseScope, unitId: "unit-1", clientId: "client-ops" },
+  },
+];
+
+export const documents: Document[] = [
+  {
+    id: "d-1",
+    projectId: "p-1",
+    type: "گزارش طراحی",
+    code: "DOC-1001",
+    version: "v2",
+    status: "UnderReview",
+    deadline: "2025-11-25",
+    slaDays: 5,
+    revisions: 2,
+  },
+  {
+    id: "d-2",
+    projectId: "p-2",
+    type: "نقشه تجهیز",
+    code: "MAP-3302",
+    version: "v1",
+    status: "Commented",
+    deadline: "2025-11-22",
+    slaDays: 3,
+    revisions: 1,
+    requiresClientAction: true,
+  },
+  {
+    id: "d-3",
+    projectId: "p-3",
+    type: "صورتجلسه QA",
+    code: "QA-553",
+    version: "v3",
+    status: "Draft",
+    deadline: "2025-11-30",
+    slaDays: 7,
+    revisions: 0,
+  },
+];
+
+export const financeSummaries: FinanceSummary[] = [
+  {
+    scope: { ...baseScope, unitId: "unit-1" },
+    invoicesIssued: 120000000,
+    invoicesPaid: 80000000,
+    invoicesOverdue: 15000000,
+    budget: 200000000,
+    actual: 130000000,
+    waiverCount: 2,
+  },
+  {
+    scope: { ...baseScope, clientId: "client-ops" },
+    invoicesIssued: 45000000,
+    invoicesPaid: 30000000,
+    invoicesOverdue: 5000000,
+    budget: 60000000,
+    actual: 38000000,
+    waiverCount: 0,
+  },
+];
+
+export const kpis: KPIValue[] = [
+  {
+    id: "kpi-1",
+    name: "زمان پاسخگویی",
+    value: 2.5,
+    unit: "روز",
+    trend: -0.4,
+    threshold: { green: 3, yellow: 5 },
+  },
+  {
+    id: "kpi-2",
+    name: "درصد به‌موقع",
+    value: 92,
+    unit: "%",
+    trend: 1.2,
+    threshold: { green: 90, yellow: 80 },
+  },
+  {
+    id: "kpi-3",
+    name: "نرخ بازبینی مجدد",
+    value: 8,
+    unit: "%",
+    trend: -0.6,
+    threshold: { green: 10, yellow: 20 },
+  },
+  {
+    id: "kpi-4",
+    name: "حجم کار",
+    value: 36,
+    unit: "پرونده",
+    trend: 3,
+    threshold: { green: 25, yellow: 40 },
+  },
+];
+
+export const alerts: AlertItem[] = [
+  {
+    id: "al-1",
+    projectCode: "UTN-1980",
+    timestamp: "2025-11-20T10:00:00Z",
+    severity: "Critical",
+    roleOwner: "LeadEngineer",
+    suggestedAction: "افزایش نیرو برای مدارک تاخیردار",
+    status: "Open",
+    title: "تاخیر در مرور مدارک Track-Fast",
+    scope: { ...baseScope, unitId: "unit-1" },
+  },
+  {
+    id: "al-2",
+    projectCode: "UTN-2045",
+    timestamp: "2025-11-19T13:20:00Z",
+    severity: "Major",
+    roleOwner: "FinanceUser",
+    suggestedAction: "پیگیری پرداخت فاکتور",
+    status: "InProgress",
+    title: "فاکتور سررسید شده",
+    scope: { ...baseScope, unitId: "unit-2" },
+  },
+  {
+    id: "al-3",
+    projectCode: "UTN-2101",
+    timestamp: "2025-11-18T08:30:00Z",
+    severity: "Minor",
+    roleOwner: "ClientOwner",
+    suggestedAction: "ارسال پاسخ به نظر فنی",
+    status: "Open",
+    title: "منتظر پاسخ مشتری",
+    scope: { ...baseScope, clientId: "client-ops" },
+  },
+];
